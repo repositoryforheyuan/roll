@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style type="text/css">
+    html, body {
+      margin: 0px;
+      padding: 0px;
+      width: 100%;
+      height: 100%;
+      font-family: "微软雅黑";
+      font-size: 62.5%;
+    }
+
+    .boxDom {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .idDom {
+      width: 100%;
+      height: 100px;
+      background: #666;
+      position: fixed;
+      bottom: 0px;
+    }
+
+    .content {
+      display: inline-block;
+      width: 430px;
+      height: 40px;
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      top: 0px;
+      bottom: 0px;
+      margin: auto;
+    }
+
+    .title {
+      display: inline;
+      font-size: 4em;
+      vertical-align: bottom;
+      color: #fff;
+    }
+
+    .text {
+      border: none;
+      width: 300px;
+      height: 30px;
+      border-radius: 5px;
+      font-size: 2.4em;
+    }
+
+    .btn {
+      width: 60px;
+      height: 30px;
+      background: #f90000;
+      border: none;
+      color: #fff;
+      font-size: 2.4em;
+    }
+
+    span {
+      width: 300px;
+      height: 40px;
+      position: absolute;
+      overflow: hidden;
+      color: #000;
+      font-size: 4em;
+      line-height: 1.5em;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+  </style>
+
+  <script>
+    /**
+     *
+     * @type {string[]}
+     * @author Yuan <heyuan20051015@163.com>
+     * @licence Apache-3.0
+     * @param{colors}colors用于弹幕颜色
+     * */
+    var colors = ["#369","#16481f","orange","red","skyblue","gray","#aaa","lightgreen","green","darkblue","#06257b","darkred","#e0a111","black", "#e2128f", "#860dad", "#94ad0d", "#ce3131"]; //用来设置的颜色
+    /**
+     *
+     * @param id
+     * @returns {HTMLElement}
+     * @author Yuan <heyuan20051014@163.com>
+     * @licence Apache-3.0
+     * @param{function}函数定意，函数防抖
+     * @param{$}id表示变量
+     */
+    function $(id){
+      return document.getElementById(id);
+    }
+
+    /**
+     * @param id
+     *@returns {HTMLElement}
+     *@author Yuan <heyuan20051014@163.com>
+     *@licence Apache-3.0
+     *@param{onload}点击事件按钮
+     *@param{timer}非全局变量
+     * @param{span}创建一个span标签
+     * @param{value}用于获取值,用于行级元素
+     * @param{innerhtml}用于区块元素获取值
+     *
+     */
+    window.onload = function (){
+      $('btn').onclick = function (){
+        var timer;
+        var input = $('text');
+        var span = document.createElement('span');
+        span.innerHTML = input.value;
+        $('boxDom').appendChild(span);
+        // 产生随机颜色
+        span.style.color = colors[parseInt(Math.random()*colors.length)];
+        /*随机数{}用于随机生成*/
+        span.style.top = (Math.random()*400) + 'px';
+        var wWidth = document.body.clientWidth;
+        span.style.left = document.body.clientWidth+ 'px';
+        var num = wWidth;
+        timer = setInterval(function (){
+          num--;                  
+          if(num < -400){
+            /**
+             * @param{boxDom}元素清除
+             */
+            $('boxDom').removeChild(span);
+            clearInterval(timer);
+          }
+          span.style.left = num + 'px';
+        },10)
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="boxDom" id="boxDom">
+  <div class="idDom" id="idDom">
+    <div class="content">
+      <p class="title">吐槽:</p>
+      <input type="text" class="text" id="text"/>
+      <button type="button" class="btn" id="btn">发表</button>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
